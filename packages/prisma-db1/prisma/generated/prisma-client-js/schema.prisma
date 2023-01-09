@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id() @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  name      String?  @db.VarChar
+
+  @@map("user")
+}
+
+model Site {
+  id        String   @id() @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  name      String?  @db.VarChar
+  Domain    Domain[]
+
+  @@map("site")
+}
+
+model Domain {
+  id         String   @id() @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  domain     String   @db.VarChar
+  siteId     String   @map("site_id") @db.Uuid
+  isVerified Boolean? @map("is_verified")
+  site       Site     @relation(fields: [siteId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([siteId, domain], map: "site_domain_unique_idx")
+  @@map("domain")
+}

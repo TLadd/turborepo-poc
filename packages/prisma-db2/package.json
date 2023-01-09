@@ -1,0 +1,14 @@
+{
+  "name": "prisma-db2",
+  "main": "./prisma/client/index.js",
+  "types": "./prisma/client/index.d.ts",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "prisma": "^4.7.1"
+  },
+  "dependencies": {
+    "@pothos/plugin-prisma": "^3.38.0",
+    "@prisma/client": "^4.7.1"
+  }
+}

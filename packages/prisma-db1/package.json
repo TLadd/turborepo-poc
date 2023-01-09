@@ -1,0 +1,13 @@
+{
+  "name": "prisma-db1",
+  "main": "./prisma/generated/prisma-client-js/index.js",
+  "types": "./prisma/generated/prisma-client-js/index.d.ts",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "prisma": "^4.7.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.7.1"
+  }
+}
